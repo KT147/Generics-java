@@ -3,13 +3,18 @@ package util;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QueryList<T extends ArrayList> {
+public class QueryList<T extends  QueryItem> extends ArrayList<T> {
 
 //    private List<T> items;
+
+    public QueryList() {
+
+    }
 //
-//    public QueryList(List<T> items) {
+    public QueryList(List<T> items) {
 //        this.items = items;
-//    }
+        super(items);
+    }
 
     public static <S extends QueryItem> List<S> getMatches(List<S> items, String field, String value) {
         List<S> matches = new ArrayList<>();
@@ -21,13 +26,13 @@ public class QueryList<T extends ArrayList> {
         return matches;
     }
 
-//    public List<T> getMatches(String field, String value) {
-//        List<T> matches = new ArrayList<>();
-//        for(var item: items) {
-//            if (item.matchFieldValue(field, value)) {
-//                matches.add(item);
-//            }
-//        }
-//        return matches;
-//    }
+    public QueryList<T> getMatches(String field, String value) {
+        QueryList<T> matches = new QueryList<>();
+        for(var item: this) {
+            if (item.matchFieldValue(field, value)) {
+                matches.add(item);
+            }
+        }
+        return matches;
+    }
 }

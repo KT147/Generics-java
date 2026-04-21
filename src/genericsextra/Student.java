@@ -2,9 +2,10 @@ package genericsextra;
 
 import util.QueryItem;
 
+import java.util.Comparator;
 import java.util.Random;
 
-class Student implements QueryItem {
+class Student implements QueryItem, Comparator<Student> {
 
     private String name;
     private int id;
@@ -19,7 +20,7 @@ class Student implements QueryItem {
         name = firstNames[random.nextInt(5)] + " " + (char) lastNameIndex;
         course = courses[random.nextInt(3)];
         yearStarted = random.nextInt(2018, 2023);
-        id = random.nextInt();
+        id = random.nextInt(1,10000);
     }
 
     @Override
@@ -35,6 +36,10 @@ class Student implements QueryItem {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public boolean matchFieldValue(String fieldName, String value) {
         String fName = fieldName.toUpperCase();
@@ -44,5 +49,10 @@ class Student implements QueryItem {
             case "YEARSTARTED" -> yearStarted == (Integer.parseInt(value));
             default -> false;
         };
+    }
+
+    @Override
+    public int compare(Student o1, Student o2) {
+        return 0;
     }
 }

@@ -16,4 +16,14 @@ class LPAStudent extends Student {
     public double getPercentComplete() {
         return percentComplete;
     }
+
+    @Override
+    public boolean matchFieldValue(String fieldName, String value) {
+        if (fieldName.equalsIgnoreCase("PercentComplete")) {
+            double percent = Double.parseDouble(value);
+            return this.getPercentComplete() <= percent;
+        }
+
+        return super.matchFieldValue(fieldName, value);
+    }
 }
